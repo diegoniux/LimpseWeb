@@ -1,6 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+// para poder hacer peticiones http a servicio Rest 
+import { HttpClientModule } from '@angular/common/http';
+
 // Rutas
 import { AppRoutingModule } from './app-routing.module';
 
@@ -23,7 +26,8 @@ import { HomeComponent } from './pages/home/home.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
