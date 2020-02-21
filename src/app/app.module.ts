@@ -7,6 +7,9 @@ import { HttpClientModule } from '@angular/common/http';
 // Rutas
 import { AppRoutingModule } from './app-routing.module';
 
+// Forms
+import { FormsModule } from '@angular/forms';
+
 // Componentes
 import { AppComponent } from './app.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
@@ -27,7 +30,8 @@ import { HomeComponent } from './pages/home/home.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

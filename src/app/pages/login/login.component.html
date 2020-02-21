@@ -18,19 +18,17 @@
                                     </h1>
                                     <hr>
                                 </div>
-                                <form class="user">
+                                <form #login = "ngForm" (ngSubmit) = "loginUsuario(login.value)" class="user">
                                     <div class="form-group">
                                         <input type="text" class="form-control form-control-user"
-                                            id="InputUser"
-                                            placeholder="Ingresa tu usuario...">
+                                            name = "user"
+                                            placeholder="Ingresa tu usuario..." ngModel>
                                     </div>
                                     <div class="form-group">
                                         <input type="password" class="form-control form-control-user"
-                                            id="InputPassword" placeholder="Contraseña">
+                                            name = "passw" placeholder="Contraseña" ngModel>
                                     </div>
-                                    <a href="index.html" class="btn btn-primary btn-user btn-block">
-                                        Entrar
-                                    </a>
+                                    <input type = "submit" value = "ENTRAR" class="btn btn-primary btn-user btn-block">
                                 </form>
                                 <hr>
                                 <div class="text-center">
