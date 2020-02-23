@@ -10,7 +10,7 @@
     </a>
 
 
-    <div *ngFor="let item of modulosService.modulos">
+    <div *ngIf="modulo">
         <!-- Divider -->
         <hr class="sidebar-divider my-0">
         <!-- Divider -->
@@ -18,7 +18,7 @@
 
         <!-- Heading -->
         <div class="sidebar-heading">
-            {{ item.modulo }}
+            {{ modulo.modulo }}
         </div>
 
         <!-- Nav Item - Pages Collapse Menu -->
@@ -26,7 +26,7 @@
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                 aria-expanded="true" aria-controls="collapseTwo">
                 <i class="fas fa-fw fa-cog"></i>
-                <span>{{ item.modulo }}</span>
+                <span>{{ modulo.modulo }}</span>
             </a>
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
@@ -40,18 +40,13 @@
 
 
     </div>
-
-
-
-    
-
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
 
     <!-- Sidebar Toggler (Sidebar) -->
-    <div class="text-center d-none d-md-inline">
+    <!-- <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
-    </div>
+    </div> -->
 
 </ul>
 <!-- End of Sidebar -->

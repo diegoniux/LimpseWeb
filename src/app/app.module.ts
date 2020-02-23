@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-// para poder hacer peticiones http a servicio Rest 
+// para poder hacer peticiones http a servicio Rest
 import { HttpClientModule } from '@angular/common/http';
 
 // Rutas

@@ -1,5 +1,5 @@
 <!-- Page Wrapper -->
-<div *ngIf="loginService.loginInterface" id=wrapper>
+<div *ngIf="loginService.isUserLoggedIn" id=wrapper>
 
   <app-sidebar></app-sidebar>
 
@@ -28,4 +28,4 @@
 </div>
 <!-- End of Page Wrapper -->
 
-<app-login *ngIf="loginService.loginInterface == undefined"></app-login>
+<app-login *ngIf="!loginService.isUserLoggedIn"></app-login>

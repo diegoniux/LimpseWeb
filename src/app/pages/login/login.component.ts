@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit {
         this.loginInterface = resp;
 
         if (this.loginInterface.objResultadoSP.result === 1) {
+          this.loginService.setUserLoggedIn(this.loginInterface);
           this.router.navigate(['/home']);
         } else {
           console.log(this.loginInterface.objResultadoSP.errorMessage);
@@ -32,8 +33,6 @@ export class LoginComponent implements OnInit {
         }
 
     } );
-
-
 
     // if (this.loginService.loginInterface?.objResultadoSP.result === 1) {
     //   this.router.navigate(['/home']);
