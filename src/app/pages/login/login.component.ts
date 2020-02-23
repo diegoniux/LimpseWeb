@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from '../../services/login.service';
 import { LoginInterface } from '../../interfaces/login.interface';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -11,16 +12,34 @@ import { LoginInterface } from '../../interfaces/login.interface';
 export class LoginComponent implements OnInit {
 
   loginInterface: LoginInterface;
+  loginForm: FormGroup;
+  submitted = false;
 
   constructor(private router: Router,
-              public loginService: LoginService) {
-               }
+              public loginService: LoginService,
+              private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
+    this.loginForm = this.formBuilder.group({
+      user: ['', Validators.required],
+      passw: ['', Validators.required]
+    });
+
+    this.loginService.setUserLoggedOn();
+
   }
 
-  public loginUsuario(formData) {
-    this.loginService.login(formData.user, formData.passw)
+  // función para obtener los controles del formulario
+  get f() {return this.loginForm.controls; }
+
+  public loginUsuario() {
+    this.submitted = true;
+
+    if (this.loginForm.invalid) {
+      return;
+    }
+
+    this.loginService.login(this.loginForm.value.user, this.loginForm.value.passw)
       .subscribe( (resp: LoginInterface) => {
         this.loginInterface = resp;
 
@@ -33,12 +52,6 @@ export class LoginComponent implements OnInit {
         }
 
     } );
-
-    // if (this.loginService.loginInterface?.objResultadoSP.result === 1) {
-    //   this.router.navigate(['/home']);
-    // } else {
-    //   console.log(this.loginService.loginInterface?.objResultadoSP);
-    // }
   }
 
 }

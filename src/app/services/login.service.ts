@@ -9,14 +9,11 @@ import { ModuloInterface } from '../interfaces/modulo.interface';
   providedIn: 'root'
 })
 export class LoginService {
-  public isUserLoggedIn;
-  public infoLogin: LoginInterface;
+
   public moduloActual: ModuloInterface;
 
   constructor(private http: HttpClient) {
-    this.isUserLoggedIn = false;
-    this.infoLogin = null;
-    this.moduloActual = null;
+
   }
 
   public login(usuario: string, password: string) {
@@ -30,27 +27,31 @@ export class LoginService {
       );
   }
 
-  public getModulos(IdUsuario, IdAplicativo) {
-    return this.http.get('https://localhost:44337/api/Login/Modulos/' + IdAplicativo + '/' + IdUsuario);
+  public getModulos(IdPerfil, IdAplicativo) {
+    return this.http.get('https://localhost:44337/api/Login/Modulos/' + IdAplicativo + '/' + IdPerfil);
+  }
+
+  public getMenus(IdModulo, IdPerfil) {
+    return this.http.get('https://localhost:44337/api/Login/Menus/' + IdModulo + '/' + IdPerfil);
+  }
+
+  public getOpciones(IdMenu, IdPerfil) {
+    return this.http.get('https://localhost:44337/api/Login/Opciones/' + IdMenu + '/' + IdPerfil);
   }
 
   setUserLoggedIn(login: LoginInterface) {
-    this.isUserLoggedIn = true;
-    this.infoLogin = login;
     localStorage.setItem('sessionUser', JSON.stringify(login));
   }
 
   getUserLoggedIn() {
-    const loginInterface: LoginInterface = JSON.parse(localStorage.getItem('sessionUser'));
+    let loginInterface: LoginInterface;
+    if (localStorage.getItem('sessionUser') !== '') {
+      loginInterface = JSON.parse(localStorage.getItem('sessionUser'));
+    }
     return loginInterface;
   }
 
   setUserLoggedOn() {
-    this.isUserLoggedIn = false;
-    this.infoLogin = null;
-    localStorage.setItem('sessionUser', '');
-    localStorage.setItem('moduloActual', '');
+    localStorage.setItem('isUserLoggedIn', null);
   }
-
-
 }

@@ -3,6 +3,7 @@ import { LoginService } from '../../services/login.service';
 import { Router } from '@angular/router';
 import { InfoAppService } from '../../services/info-app.service';
 import { ModuloInterface } from '../../interfaces/modulo.interface';
+import { LoginInterface } from '../../interfaces/login.interface';
 
 @Component({
   selector: 'app-navbar',
@@ -12,6 +13,7 @@ import { ModuloInterface } from '../../interfaces/modulo.interface';
 export class NavbarComponent implements OnInit {
 
   modulos: ModuloInterface[];
+  infoLogin: LoginInterface;
 
   constructor(public loginService: LoginService,
               public router: Router,
@@ -19,8 +21,8 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     const IdAplicativo = this.infoAppService.info.IdAplicativo;
-    const IdUsuario = this.loginService.getUserLoggedIn().objUsuario.idUsuario;
-    this.loginService.getModulos(IdAplicativo, IdUsuario)
+    this.infoLogin = this.loginService.getUserLoggedIn();
+    this.loginService.getModulos(IdAplicativo, this.infoLogin.objUsuario.idPerfil)
       .subscribe((resp: ModuloInterface[]) => {
         this.modulos = resp;
       });

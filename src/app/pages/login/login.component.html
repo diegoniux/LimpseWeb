@@ -13,22 +13,32 @@
                         <div class="col-lg-6">
                             <div class="p-5">
                                 <div class="text-center">
-                                    <img class="animated bounce" src="assets/img/Logo.png" style="max-width: 100%;" alt="Limpse Web">
+                                    <img class="animated bounce" src="assets/img/Logo.png" style="max-width: 100%;"
+                                        alt="Limpse Web">
                                     <h1 class="h4 text-gray-900 mb-4">Inicio de Sesión
                                     </h1>
                                     <hr>
                                 </div>
-                                <form #login = "ngForm" (ngSubmit) = "loginUsuario(login.value)" class="user">
+                                <form [formGroup]="loginForm" (ngSubmit)="loginUsuario()" class="user">
                                     <div class="form-group">
-                                        <input type="text" class="form-control form-control-user"
-                                            name = "user"
-                                            placeholder="Ingresa tu usuario..." ngModel>
+                                        <input type="text" class="form-control form-control-user" formControlName="user"
+                                            placeholder="Ingresa tu usuario..."
+                                            [ngClass]="{ 'is-invalid': submitted && f.user.errors }">
+                                        <div *ngIf="submitted && f.user.errors" class="invalid-feedback">
+                                            <div *ngIf="f.user.errors.required">El usuario es requerido</div>
+                                        </div>
                                     </div>
                                     <div class="form-group">
                                         <input type="password" class="form-control form-control-user"
-                                            name = "passw" placeholder="Contraseña" ngModel>
+                                            formControlName="passw"
+                                            placeholder="Contraseña" ngModel
+                                            [ngClass]="{ 'is-invalid': submitted && f.passw.errors }">
+                                        <div *ngIf="submitted && f.passw.errors" class="invalid-feedback">
+                                            <div *ngIf="f.passw.errors.required">La contraseña es requerida</div>
+                                         </div>
                                     </div>
-                                    <input type = "submit" value = "ENTRAR" class="btn btn-primary btn-user btn-block">
+
+                                    <input type="submit" value="ENTRAR" class="btn btn-primary btn-user btn-block"/>
                                 </form>
                                 <hr>
                                 <div class="text-center">

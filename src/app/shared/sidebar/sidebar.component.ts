@@ -1,31 +1,58 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { InfoAppService } from '../../services/info-app.service';
 import { ModulosService } from '../../services/modulos.service';
 import { ModuloInterface } from '../../interfaces/modulo.interface';
 import { LoginService } from '../../services/login.service';
+import { MenuInterface } from '../../interfaces/menu.interface';
+import { OpcionInterface } from '../../interfaces/opcion.interface';
+import { LoginInterface } from '../../interfaces/login.interface';
 
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css']
 })
-export class SidebarComponent implements OnInit, OnChanges {
+export class SidebarComponent implements OnInit {
 
   public modulo: ModuloInterface;
+  public menus: MenuInterface[];
+  public opciones: OpcionInterface[];
+  infoLogin: LoginInterface;
 
   constructor( public infoPagService: InfoAppService,
                public loginService: LoginService ) { }
 
   ngOnInit(): void {
-    console.log(this.loginService.moduloActual);
-    if (this.loginService.moduloActual) {
-      this.modulo = this.loginService.moduloActual;
-      console.log(this.modulo);
-    }
+    this.cargarMenus();
   }
 
-  ngOnChanges(): void {
-    console.log(this.loginService.moduloActual);
+  cargarMenus() {
+    this.infoLogin = this.loginService.getUserLoggedIn();
+    this.modulo = this.loginService.moduloActual;
+
+    console.log(this.infoLogin);
+    console.log(this.modulo);
+
+    if (!this.modulo) {
+      return;
+    }
+
+    // Obtenemos los menús para módulo
+    this.loginService.getMenus(this.modulo.idModulo, this.infoLogin.objUsuario.idPerfil)
+    .subscribe( (resp: MenuInterface[]) => {
+
+      resp.forEach( (menu) => {
+        this.loginService.getOpciones(menu.idMenu, this.infoLogin.objUsuario.idPerfil)
+        .subscribe( (opciones: OpcionInterface[]) => {
+          menu.listOpciones = opciones;
+          this.menus.push(menu);
+        });
+      });
+      console.log(this.menus);
+    });
   }
+
+
+
 
 }
