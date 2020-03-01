@@ -19,6 +19,7 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { LoginComponent } from './pages/login/login.component';
 import { HomeComponent } from './pages/home/home.component';
 import { PerfilComponent } from './pages/perfil/perfil.component';
+import { AlertModule } from './shared/_alert/alert.module';
 
 @NgModule({
   declarations: [
@@ -34,8 +35,8 @@ import { PerfilComponent } from './pages/perfil/perfil.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    // FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AlertModule
   ],
   providers: [],
   bootstrap: [AppComponent]

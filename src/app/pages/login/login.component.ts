@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { LoginService } from '../../services/login.service';
 import { LoginInterface } from '../../interfaces/login.interface';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AlertService } from '../../shared/_alert/alert.service';
 
 @Component({
   selector: 'app-login',
@@ -14,10 +15,15 @@ export class LoginComponent implements OnInit {
   loginInterface: LoginInterface;
   loginForm: FormGroup;
   submitted = false;
+  options = {
+    autoClose: false,
+    keepAfterRouteChange: false
+  };
 
   constructor(private router: Router,
               public loginService: LoginService,
-              private formBuilder: FormBuilder) { }
+              private formBuilder: FormBuilder,
+              private alertService: AlertService) { }
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
@@ -47,8 +53,8 @@ export class LoginComponent implements OnInit {
           this.loginService.setUserLoggedIn(this.loginInterface);
           this.router.navigate(['/home']);
         } else {
+          this.alertService.error(this.loginInterface.objResultadoSP.friendlyMessage, this.options);
           console.log(this.loginInterface.objResultadoSP.errorMessage);
-          alert(this.loginInterface.objResultadoSP.friendlyMessage);
         }
 
     } );
