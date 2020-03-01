@@ -8,6 +8,7 @@ import { LoginService } from '../../services/login.service';
 import { Router } from '@angular/router';
 import { ResultadoSP } from '../../interfaces/result.interface';
 import { AlertService } from '../../shared/_alert/alert.service';
+import { ModalService } from '../../shared/_modal/modal.service';
 
 @Component({
   selector: 'app-perfil',
@@ -31,7 +32,8 @@ export class PerfilComponent implements OnInit {
               private usuarioService: UsuarioService,
               private loginService: LoginService,
               private router: Router,
-              private alertService: AlertService) {
+              private alertService: AlertService,
+              private modalService: ModalService) {
     this.usuarioActual = loginService.getUserLoggedIn().objUsuario;
     this.cargarPerfiles();
   }
@@ -74,12 +76,27 @@ export class PerfilComponent implements OnInit {
       (resp: ResultadoSP) => {
         if (resp.result === 1) {
           this.alertService.success('Perfil actualizado correctamente', this.options);
+          this.closeModal('perfilModal');
         } else {
           this.alertService.error(resp.friendlyMessage, this.options);
           console.log(resp.errorMessage);
         }
       }
     );
+  }
+
+  openModal(id: string) {
+    this.submitted = true;
+
+    if (this.perfilForm.invalid) {
+      return;
+    }
+
+    this.modalService.open(id);
+  }
+
+  closeModal(id: string) {
+    this.modalService.close(id);
   }
 
 }

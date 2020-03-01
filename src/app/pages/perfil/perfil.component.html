@@ -1,7 +1,7 @@
 <div class="card m-3">
   <h1 class="card-header h5 text-gray-900 mb-4">Perfil de Usuario</h1>
   <div class="card-body">
-    <form [formGroup]="perfilForm" (ngSubmit)="actualizarPerfil()" >
+    <form [formGroup]="perfilForm" (ngSubmit)="openModal('perfilModal')" >
       <div class="form-group">
         <label>Usuario</label>
         <input type="text" 
@@ -41,4 +41,17 @@
     </form>
   </div>
 </div>
+
+<jw-modal id="perfilModal">
+  <div class="card m-auto">
+      <h1 class="card-header h5 text-gray-900 mb-2">Confirmación</h1>
+      <div class="card-body">
+          ¿Deseas guardar la información?
+          <div class="text-right">
+              <button class="btn btn-primary mr-1" (click)="actualizarPerfil();">Salir</button>
+              <button class="btn btn-secondary" (click)="closeModal('perfilModal');">Cancelar</button>
+          </div>
+      </div>
+  </div>
+</jw-modal>
 

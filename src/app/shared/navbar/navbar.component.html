@@ -28,7 +28,7 @@
                     Perfil
                 </a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#" (click)="cerraSession();" role="button">
+                <a class="dropdown-item" (click)="openModal('confirmationModal')" role="button">
                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                     Cerrar sesión
                 </a>
@@ -38,3 +38,16 @@
     </ul>
 </nav>
 <!-- End of Topbar -->
+
+<jw-modal id="confirmationModal">
+    <div class="card m-auto">
+        <h1 class="card-header h5 text-gray-900 mb-2">Confirmación</h1>
+        <div class="card-body">
+            ¿Deseas salir del sistema?
+            <div class="text-right">
+                <button class="btn btn-primary mr-1" (click)="cerraSession();">Salir</button>
+                <button class="btn btn-secondary" (click)="closeModal('confirmationModal');">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</jw-modal>

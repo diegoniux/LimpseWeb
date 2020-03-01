@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { InfoAppService } from '../../services/info-app.service';
 import { ModuloInterface } from '../../interfaces/modulo.interface';
 import { LoginInterface } from '../../interfaces/login.interface';
+import { ModalService } from '../_modal/modal.service';
 
 @Component({
   selector: 'app-navbar',
@@ -17,7 +18,8 @@ export class NavbarComponent implements OnInit {
 
   constructor(public loginService: LoginService,
               public router: Router,
-              public infoAppService: InfoAppService) { }
+              public infoAppService: InfoAppService,
+              private modalService: ModalService) { }
 
   ngOnInit(): void {
     const IdAplicativo = this.infoAppService.info.IdAplicativo;
@@ -36,6 +38,14 @@ export class NavbarComponent implements OnInit {
   goModulo(modulo: ModuloInterface) {
     this.loginService.moduloActual = modulo;
     this.router.navigate([modulo.ruta]);
+  }
+
+  openModal(id: string) {
+    this.modalService.open(id);
+  }
+
+  closeModal(id: string) {
+    this.modalService.close(id);
   }
 
 }

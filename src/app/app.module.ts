@@ -20,6 +20,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { HomeComponent } from './pages/home/home.component';
 import { PerfilComponent } from './pages/perfil/perfil.component';
 import { AlertModule } from './shared/_alert/alert.module';
+import { ModalModule } from './shared/_modal';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { AlertModule } from './shared/_alert/alert.module';
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    AlertModule
+    AlertModule,
+    ModalModule
   ],
   providers: [],
   bootstrap: [AppComponent]
