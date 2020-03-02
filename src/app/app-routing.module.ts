@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './pages/login/login.component';
 import { HomeModule } from './modules/home/home.module';
-import { PerfilModule } from './modules/perfil/perfil.module';
 
 
 const appRoutes: Routes = [
@@ -13,11 +12,6 @@ const appRoutes: Routes = [
   {
    path: 'home',
    loadChildren: () => import('./modules/home/home.module').then(m => HomeModule)
-  },
-
-  {
-   path: 'perfil',
-   loadChildren: () => import('./modules/perfil/perfil.module').then(m => PerfilModule)
   },
   {
    path: '**',
