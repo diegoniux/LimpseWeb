@@ -21,6 +21,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { PerfilComponent } from './pages/perfil/perfil.component';
 import { AlertModule } from './shared/_alert/alert.module';
 import { ModalModule } from './shared/_modal';
+import { CambioPasswComponent } from './pages/cambio-passw/cambio-passw.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { ModalModule } from './shared/_modal';
     FooterComponent,
     LoginComponent,
     HomeComponent,
-    PerfilComponent
+    PerfilComponent,
+    CambioPasswComponent
   ],
   imports: [
     BrowserModule,

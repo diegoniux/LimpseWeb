@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from '../../pages/home/home.component';
 import { PerfilComponent } from '../../pages/perfil/perfil.component';
+import { CambioPasswComponent } from '../../pages/cambio-passw/cambio-passw.component';
 
 
 const routes: Routes = [
@@ -10,7 +11,12 @@ const routes: Routes = [
     component: HomeComponent,
     children: [
       {
-        path: 'perfil', component: PerfilComponent
+        path: 'perfil',
+        component: PerfilComponent
+      },
+      {
+        path: 'cambio-passw',
+        component: CambioPasswComponent
       }
     ]
   }

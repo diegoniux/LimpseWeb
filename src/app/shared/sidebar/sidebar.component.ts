@@ -15,8 +15,8 @@ import { LoginInterface } from '../../interfaces/login.interface';
 export class SidebarComponent implements OnInit {
 
   public modulo: ModuloInterface;
-  public menus: MenuInterface[];
-  public opciones: OpcionInterface[];
+  public menus: MenuInterface[] = [];
+  public opciones: OpcionInterface[] = [];
   infoLogin: LoginInterface;
 
   constructor( public infoPagService: InfoAppService,
@@ -30,9 +30,6 @@ export class SidebarComponent implements OnInit {
     this.infoLogin = this.loginService.getUserLoggedIn();
     this.modulo = this.loginService.moduloActual;
 
-    console.log(this.infoLogin);
-    console.log(this.modulo);
-
     if (!this.modulo) {
       return;
     }
@@ -40,8 +37,8 @@ export class SidebarComponent implements OnInit {
     // Obtenemos los menús para módulo
     this.loginService.getMenus(this.modulo.idModulo, this.infoLogin.objUsuario.idPerfil)
     .subscribe( (resp: MenuInterface[]) => {
-
       resp.forEach( (menu) => {
+        console.log(menu);
         this.loginService.getOpciones(menu.idMenu, this.infoLogin.objUsuario.idPerfil)
         .subscribe( (opciones: OpcionInterface[]) => {
           menu.listOpciones = opciones;

@@ -4,6 +4,7 @@ import { LoginService } from '../../services/login.service';
 import { LoginInterface } from '../../interfaces/login.interface';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertService } from '../../shared/_alert/alert.service';
+import { ModuloInterface } from '../../interfaces/modulo.interface';
 
 @Component({
   selector: 'app-login',
@@ -48,7 +49,13 @@ export class LoginComponent implements OnInit {
     this.loginService.login(this.loginForm.value.user, this.loginForm.value.passw)
       .subscribe( (resp: LoginInterface) => {
         this.loginInterface = resp;
+        const modulo: ModuloInterface = {};
+        modulo.idAplicativo = 1;
+        modulo.idModulo = 5;
+        modulo.modulo = 'Perfil';
+        modulo.ruta = '/home';
 
+        this.loginService.moduloActual = modulo;
         if (this.loginInterface.objResultadoSP.result === 1) {
           this.loginService.setUserLoggedIn(this.loginInterface);
           this.router.navigate(['/home']);
