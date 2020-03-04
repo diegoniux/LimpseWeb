@@ -38,14 +38,12 @@ export class SidebarComponent implements OnInit {
     this.loginService.getMenus(this.modulo.idModulo, this.infoLogin.objUsuario.idPerfil)
     .subscribe( (resp: MenuInterface[]) => {
       resp.forEach( (menu) => {
-        console.log(menu);
         this.loginService.getOpciones(menu.idMenu, this.infoLogin.objUsuario.idPerfil)
         .subscribe( (opciones: OpcionInterface[]) => {
           menu.listOpciones = opciones;
           this.menus.push(menu);
         });
       });
-      console.log(this.menus);
     });
   }
 

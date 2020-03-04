@@ -13,7 +13,6 @@ export class HomeComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit(): void {
-    console.log(this.loginService.getUserLoggedIn());
     if (!this.loginService.getUserLoggedIn()) {
       this.router.navigate(['/login']);
     }

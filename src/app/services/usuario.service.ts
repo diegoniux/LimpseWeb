@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { UsuarioInterface } from '../interfaces/usuario.interface';
+import { Md5 } from 'ts-md5';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +26,8 @@ export class UsuarioService {
   }
 
   public actualizarPasswordUsuario(usuario: UsuarioInterface) {
+    const passMd5 = new Md5().appendStr(usuario.password).end();
+    usuario.password = passMd5.toString();
     return this.http.put('https://localhost:44337/CambioPass/' + usuario.idUsuario,
     JSON.stringify(usuario),
     {

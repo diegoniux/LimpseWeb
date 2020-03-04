@@ -25,8 +25,6 @@ export class PerfilComponent implements OnInit {
     keepAfterRouteChange: false
   };
 
-
-
   constructor(private formBuilder: FormBuilder,
               private catalogosService: CatalogosService,
               private usuarioService: UsuarioService,
