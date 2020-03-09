@@ -11,6 +11,9 @@ import { AppRoutingModule } from './app-routing.module';
 // import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 
+// Data Table
+import { DataTablesModule } from 'angular-datatables';
+
 // Componentes
 import { AppComponent } from './app.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
@@ -68,7 +71,8 @@ import { AdmorClientesComponent } from './pages/admor-clientes/admor-clientes.co
     HttpClientModule,
     ReactiveFormsModule,
     AlertModule,
-    ModalModule
+    ModalModule,
+    DataTablesModule
   ],
   providers: [],
   bootstrap: [AppComponent]

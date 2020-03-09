@@ -13,5 +13,9 @@ export class CatalogosService {
     return this.http.get('https://localhost:44337/api/Catalogos/Perfiles');
   }
 
+  public gettiposServicio() {
+    return this.http.get('https://localhost:44337/api/Catalogos/TiposServicio');
+  }
+
 
 }

@@ -1,1 +1,87 @@
-<p>admor-servicios works!</p>
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h4 class="m-0 font-weight-bold text-primary">Catálogo de Servicios</h4>
+    </div>
+    <div class="card-body">
+        <div class="text-left">
+            <button class="btn btn-primary btn-sm" (click)="agregarServicio();">Agregar Servicio</button>
+        </div>
+        <br>
+        <div class="table-responsive">
+            <table datatable [dtOptions]="dtServicios" class="row-border hover" width="100%" cellspacing="0">
+            </table>
+        </div>
+    </div>
+</div>
+
+<jw-modal id="eliminarModal">
+    <div class="card m-1">
+        <h1 class="card-header h5 text-gray-900 mb-2">Confirmación</h1>
+        <div class="card-body">
+            ¿Deseas dar de baja este servicio?
+            <div class="text-right">
+                <button class="btn btn-primary mr-1" (click)="eliminarServicio();">Guardar</button>
+                <button class="btn btn-secondary" (click)="closeModal('eliminarModal');">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</jw-modal>
+
+<jw-modal id="guardarModal">
+    <div class="card m-1">
+        <h1 class="card-header h5 text-gray-900 mb-2">Confirmación</h1>
+        <div class="card-body">
+            ¿Deseas guardar la información?
+            <div class="text-right">
+                <button class="btn btn-primary mr-1" (click)="guardarServicio();">Guardar</button>
+                <button class="btn btn-secondary" (click)="closeModal('guardarModal');">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</jw-modal>
+
+<jw-modal id="servicioModal">
+    <div class="card m-auto">
+        <h1 class="card-header h5 text-gray-900 mb-2">Información del Servicio</h1>
+        <div class="card-body">
+            <form [formGroup]="servicioForm" (ngSubmit)="guardarServicio()">
+                <div class="form-group col-2">
+                    <label>Id</label>
+                    <input type="text" formControlName="idServicio" class="form-control" disabled>
+                </div>
+                <div class="form-group">
+                    <label>Servicio</label>
+                    <input type="text" formControlName="servicio" class="form-control"
+                        [ngClass]="{ 'is-invalid': submitted && f.servicio.errors }">
+                    <div *ngIf="submitted && f.servicio.errors" class="invalid-feedback">
+                        <div *ngIf="f.servicio.errors.required">El servicio es requerido</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Tipo Servicio</label>
+                    <select formControlName="idTipoServicio" 
+                            [ngClass]="{ 'is-invalid': submitted && f.idTipoServicio.errors }"
+                        class="form-control">
+                        <option *ngFor="let item of tiposServicio" [ngValue]="item">{{ item.tipoServicio }}</option>
+                    </select>
+                    <div *ngIf="submitted && f.idTipoServicio.errors" class="invalid-feedback">
+                        <div *ngIf="f.idTipoServicio.errors.required">Selecciona un tipo sertivio</div>
+                    </div>
+                </div>
+                <div class="form-group col-2">
+                    <label>Activo</label>
+                    <input type="checkbox" formControlName="activo" class="form-control" disabled
+                        [ngClass]="{ 'is-invalid': submitted && f.activo.errors }">
+                    <div *ngIf="submitted && f.activo.errors" class="invalid-feedback">
+                        <div *ngIf="f.activo.errors.required">Active o desactive</div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <button class="btn btn-primary mr-1">Guardar</button>
+                    <button class="btn btn-secondary" type="reset" (click)="cancelar();">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</jw-modal>
