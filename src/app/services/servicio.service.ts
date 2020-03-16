@@ -17,8 +17,8 @@ export class ServicioService {
     return this.http.get('https://localhost:44337/api/Servicios/' + IdServicio);
   }
 
-  public actualizarServicio(servicio: ServicioInterface) {
-    return this.http.put('https://localhost:44337/api/Servicios/' + servicio.idServicio,
+  public actualizarServicio(idServicio, servicio: ServicioInterface) {
+    return this.http.put('https://localhost:44337/api/Servicios/' + idServicio,
     JSON.stringify(servicio),
     {
       headers: {'Content-Type': 'application/json; charset=utf-8'}

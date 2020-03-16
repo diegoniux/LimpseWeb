@@ -11,8 +11,8 @@ import { AppRoutingModule } from './app-routing.module';
 // import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 
-// Data Table
-import { DataTablesModule } from 'angular-datatables';
+// DevExtreme (la mera vena)
+import { DxDataGridModule } from 'devextreme-angular/ui/data-grid';
 
 // Componentes
 import { AppComponent } from './app.component';
@@ -72,7 +72,7 @@ import { AdmorClientesComponent } from './pages/admor-clientes/admor-clientes.co
     ReactiveFormsModule,
     AlertModule,
     ModalModule,
-    DataTablesModule
+    DxDataGridModule
   ],
   providers: [],
   bootstrap: [AppComponent]
