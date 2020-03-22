@@ -4,6 +4,8 @@ import { LoginInterface } from '../interfaces/login.interface';
 import { Md5 } from 'ts-md5/dist/md5';
 import { ModuloInterface } from '../interfaces/modulo.interface';
 import { ReportesRoutingModule } from '../modules/reportes/reportes-routing.module';
+import { InfoAppService } from './info-app.service';
+import { InfoApp } from '../interfaces/infoPagina.interface';
 
 
 @Injectable({
@@ -11,7 +13,8 @@ import { ReportesRoutingModule } from '../modules/reportes/reportes-routing.modu
 })
 export class LoginService {
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+              private infoAppService: InfoAppService) {
 
   }
 
@@ -26,7 +29,7 @@ export class LoginService {
       );
   }
 
-  public getModulos(IdPerfil, IdAplicativo) {
+  public getModulos(IdAplicativo, IdPerfil) {
     return this.http.get('https://localhost:44337/api/Login/Modulos/' + IdAplicativo + '/' + IdPerfil);
   }
 
@@ -39,7 +42,24 @@ export class LoginService {
   }
 
   public setUserLoggedIn(login: LoginInterface) {
+    this.infoAppService.getInfoApp()
+    .toPromise()
+    .then( (resp: InfoApp) => {
+      localStorage.setItem('infoApp', JSON.stringify(resp));
+    })
+    .catch( error => {
+      throw error;
+    });
+
     localStorage.setItem('sessionUser', JSON.stringify(login));
+  }
+
+  public getInfoApp() {
+    let infoApp: InfoApp;
+    if (localStorage.getItem('infoApp') !== '') {
+      infoApp = JSON.parse(localStorage.getItem('infoApp'));
+    }
+    return infoApp;
   }
 
   public setModuloActual(modulo: ModuloInterface) {

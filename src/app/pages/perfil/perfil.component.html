@@ -17,8 +17,9 @@
         <label>Perfil</label>
         <select formControlName="idPerfil" 
                 [ngClass]="{ 'is-invalid': submitted && f.idPerfil.errors }"
-                class="form-control">
-          <option *ngFor="let item of perfiles" value="item.idPerfil">{{ item.perfil }}</option>
+                class="form-control" 
+                disabled>
+          <option *ngFor="let item of perfiles" value="item.idPerfil" [selected]="usuarioActual.idPerfil">{{ item.perfil }}</option>
         </select>
         <div *ngIf="submitted && f.idPerfil.errors" class="invalid-feedback">
           <div *ngIf="f.idPerfil.errors.required">Selecciona un perfil</div>

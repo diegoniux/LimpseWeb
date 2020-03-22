@@ -32,11 +32,13 @@ export class PerfilComponent implements OnInit {
               private router: Router,
               private alertService: AlertService,
               private modalService: ModalService) {
-    this.usuarioActual = loginService.getUserLoggedIn().objUsuario;
     this.cargarPerfiles();
   }
 
   ngOnInit(): void {
+    this.usuarioActual = this.loginService.getUserLoggedIn().objUsuario;
+
+    console.log(this.usuarioActual.idPerfil);
     this.perfilForm = this.formBuilder.group({
       usuario: [this.usuarioActual.usuario, [Validators.required, Validators.minLength(4)]],
       idPerfil: [this.usuarioActual.idPerfil, Validators.required],

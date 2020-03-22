@@ -59,13 +59,11 @@ export class LoginComponent implements OnInit {
           // revisamos el estatus del usuario
           switch (resp.objUsuario.idEstatusUsuario) {
             case 1: // Usuario Activo
-
               const modulo: ModuloInterface = {
                 idModulo: 5,
                 modulo: 'Perfil',
                 ruta: '/home'
               };
-
               this.loginService.setModuloActual(modulo);
               this.router.navigate([modulo.ruta]);
               break;

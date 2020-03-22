@@ -5,6 +5,8 @@ import { InfoAppService } from '../../services/info-app.service';
 import { ModuloInterface } from '../../interfaces/modulo.interface';
 import { LoginInterface } from '../../interfaces/login.interface';
 import { ModalService } from '../_modal/modal.service';
+import { AlertService } from '../_alert/alert.service';
+import { InfoApp } from '../../interfaces/infoPagina.interface';
 
 @Component({
   selector: 'app-navbar',
@@ -14,19 +16,30 @@ import { ModalService } from '../_modal/modal.service';
 export class NavbarComponent implements OnInit {
 
   modulos: ModuloInterface[];
+  options = {
+    autoClose: false,
+    keepAfterRouteChange: false
+  };
+  infoApp: InfoApp;
   infoLogin: LoginInterface;
 
   constructor(public loginService: LoginService,
               public router: Router,
               public infoAppService: InfoAppService,
-              private modalService: ModalService) { }
+              private modalService: ModalService,
+              private alertService: AlertService) { }
 
   ngOnInit(): void {
-    const IdAplicativo = this.infoAppService.info.IdAplicativo;
-    this.infoLogin = this.loginService.getUserLoggedIn();
-    this.loginService.getModulos(IdAplicativo, this.infoLogin.objUsuario.idPerfil)
-      .subscribe((resp: ModuloInterface[]) => {
+    this.infoApp = this.loginService.getInfoApp();
+    this.infoLogin =  this.loginService.getUserLoggedIn();
+
+    this.loginService.getModulos(this.infoApp.IdAplicativo, this.infoLogin.objUsuario.idPerfil)
+      .toPromise()
+      .then((resp: any[]) => {
         this.modulos = resp;
+      })
+      .catch( error => {
+        this.alertService.error(error.message, this.options);
       });
   }
 
@@ -36,6 +49,16 @@ export class NavbarComponent implements OnInit {
   }
 
   goModulo(modulo: ModuloInterface) {
+    this.loginService.setModuloActual(modulo);
+    this.router.navigate([modulo.ruta]);
+  }
+
+  goModuloPerfil() {
+    const modulo: ModuloInterface = {
+      idAplicativo: 1,
+      idModulo: 5,
+      ruta: 'home/perfil'
+    };
     this.loginService.setModuloActual(modulo);
     this.router.navigate([modulo.ruta]);
   }

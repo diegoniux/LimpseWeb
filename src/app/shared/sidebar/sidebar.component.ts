@@ -6,6 +6,7 @@ import { LoginService } from '../../services/login.service';
 import { MenuInterface } from '../../interfaces/menu.interface';
 import { OpcionInterface } from '../../interfaces/opcion.interface';
 import { LoginInterface } from '../../interfaces/login.interface';
+import { InfoApp } from '../../interfaces/infoPagina.interface';
 
 @Component({
   selector: 'app-sidebar',
@@ -18,6 +19,7 @@ export class SidebarComponent implements OnInit {
   public menus: MenuInterface[] = [];
   public opciones: OpcionInterface[] = [];
   infoLogin: LoginInterface;
+  infoApp: InfoApp;
 
   constructor( public infoPagService: InfoAppService,
                public loginService: LoginService ) { }
@@ -29,6 +31,7 @@ export class SidebarComponent implements OnInit {
   cargarMenus() {
     this.infoLogin = this.loginService.getUserLoggedIn();
     this.modulo = this.loginService.getModuloActual();
+    this.infoApp = this.loginService.getInfoApp();
 
     if (!this.modulo) {
       return;

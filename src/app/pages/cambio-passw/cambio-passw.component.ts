@@ -9,6 +9,7 @@ import { ModalService } from '../../shared/_modal/modal.service';
 import { ResultadoSP } from '../../interfaces/result.interface';
 import { MustMatch } from '../../shared/_helpers/must-match.validator';
 import { LoginInterface } from '../../interfaces/login.interface';
+import { ModuloInterface } from '../../interfaces/modulo.interface';
 
 // import custom validator to validate that password and confirm password fields match
 
@@ -79,16 +80,27 @@ export class CambioPasswComponent implements OnInit {
         if (res.objResultadoSP.result === 1) {
           this.usuarioActual.password = this.passwForm.value.newPassw;
 
-          this.usuarioService.actualizarPasswordUsuario(this.usuarioActual).subscribe(
-            (resp: ResultadoSP) => {
-              if (resp.result === 1) {
-                this.alertService.success('Contraseña actualizada correctamente', this.options);
-                this.closeModal('passwModal');
-              } else {
-                this.alertService.error(resp.friendlyMessage, this.options);
-                console.log(resp.errorMessage);
+          this.usuarioService.actualizarPasswordUsuario(this.usuarioActual)
+            .toPromise()
+            .then(
+              (resp: ResultadoSP) => {
+                if (resp.result === 1) {
+                  const modulo: ModuloInterface = {
+                    idModulo: 5,
+                    modulo: 'Perfil',
+                    ruta: '/home'
+                  };
+
+                  this.loginService.setModuloActual(modulo);
+                  this.router.navigate([modulo.ruta]);
+
+                } else {
+                  this.alertService.error(resp.friendlyMessage, this.options);
+                  console.log(resp.errorMessage);
+                }
               }
-            }
+            )
+            .catch( error => { this.alertService.error( error.message ); }
           );
         } else {
           this.alertService.error('La contraseña actual es incorrecta.', this.options);
