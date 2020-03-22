@@ -1,1 +1,110 @@
-<p>usuarios works!</p>
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Catálogo de Usuarios</h6>
+    </div>
+    <div class="card-body">
+        <dx-data-grid #targetGridUsuarios
+            [dataSource]="usuariosDataSource"
+            [showBorders]="true"
+            [columnAutoWidth]="true"
+            keyExpr="idUsuario"
+            [rowAlternationEnabled]="true"
+            [showRowLines]="true"
+            [hoverStateEnabled]="true">
+            <dxo-paging [pageSize]="10"></dxo-paging>
+            <dxo-pager 
+                [showPageSizeSelector]="true"
+                [allowedPageSizes]="[5, 10, 20]"
+                [showInfo]="true">
+            </dxo-pager>
+
+            <dxo-load-panel [enabled]="true"></dxo-load-panel>
+            <dxo-filter-row [visible]="true"></dxo-filter-row>
+            <dxo-header-filter [visible]="true"></dxo-header-filter>
+            <dxo-export 
+                [enabled]="true"
+                [printingEnabled]="true">
+            </dxo-export>
+
+            <dxo-editing 
+                mode="popup"
+                [allowAdding]="true"
+                [allowUpdating]="true"
+                [allowDeleting]="true"
+                [useIcons]="true">
+                <dxo-popup
+                    title="Información"
+                    [showTitle]="true">
+                </dxo-popup>
+                
+            <dxo-form>
+                <dxi-item itemType="group" [colSpan]="2">
+                    <dxi-item dataField="idUsuario" [editorOptions]="{ disabled: true }" ></dxi-item>
+                    <dxi-item dataField="idPerfil">
+                        <dxi-validation-rule type="required" message="Seleccione un perfil"></dxi-validation-rule>
+                    </dxi-item>
+                    <dxi-item dataField="idEstatusUsuario">
+                        <dxi-validation-rule type="required"  message="Seleccione un estatus"></dxi-validation-rule>
+                    </dxi-item>
+                    <dxi-item dataField="usuario">
+                        <dxi-validation-rule type="required" message="Campo requerido"></dxi-validation-rule>
+                    </dxi-item>
+                    <dxi-item dataField="email">
+                        <dxi-validation-rule type="required" message="Email requerido"></dxi-validation-rule>
+                        <dxi-validation-rule type="email" message="El correo ingresado no es válido"></dxi-validation-rule>
+                    </dxi-item>
+                </dxi-item>
+            </dxo-form>
+            </dxo-editing>
+
+            <dxi-column dataField="idUsuario" dataType="number" [visible]="false" caption="No"></dxi-column>
+            <dxi-column dataField="usuario" dataType="string" caption="Usuario"></dxi-column>
+            <dxi-column dataField="email" dataType="email"></dxi-column>
+            <dxi-column 
+                dataField="idPerfil" 
+                dataType="string" 
+                caption="Perfil">
+                <dxo-lookup
+                    [dataSource]="perfiles"
+                    displayExpr="perfil"
+                    valueExpr="idPerfil">
+                </dxo-lookup>
+            </dxi-column>
+            <dxi-column 
+                dataField="idEstatusUsuario" 
+                dataType="string" 
+                caption="Estatus"
+                [editorOptions]="{ disabled: true }">
+                <dxo-lookup
+                    [dataSource]="estatusUsuarios"
+                    displayExpr="estatusUsuario"
+                    valueExpr="idEstatusUsuario">
+                </dxo-lookup>
+            </dxi-column>
+            <dxi-column type="buttons">
+                <dxi-button name="edit"></dxi-button>
+                <dxi-button name="delete"></dxi-button>
+                <dxi-button
+                    hint="Bloquear usuario"
+                    icon="fas fa-lock"
+                    [visible]="optionLockVisible"
+                    [onClick]="bloquearUsuarioClick">
+                </dxi-button>
+                <dxi-button
+                    hint="Desbloquear Usuario"
+                    icon="fas fa-unlock"
+                    [visible]="optionUnlockVisible"
+                    [onClick]="desbloquearUsuarioClick">
+                </dxi-button>
+                <dxi-button
+                    hint="Resetear Contraseña"
+                    icon="fas fa-reply"
+                    [onClick]="resetPasswClick">
+                </dxi-button>
+            </dxi-column>
+        </dx-data-grid>
+    </div>
+</div>
+
+

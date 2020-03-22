@@ -36,7 +36,7 @@ export class NavbarComponent implements OnInit {
   }
 
   goModulo(modulo: ModuloInterface) {
-    this.loginService.moduloActual = modulo;
+    this.loginService.setModuloActual(modulo);
     this.router.navigate([modulo.ruta]);
   }
 

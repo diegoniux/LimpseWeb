@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ɵflushModuleScopingQueueAsMuchAsPossible } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from '../../services/login.service';
 import { LoginInterface } from '../../interfaces/login.interface';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertService } from '../../shared/_alert/alert.service';
 import { ModuloInterface } from '../../interfaces/modulo.interface';
+import { UsuarioInterface } from '../../interfaces/usuario.interface';
 
 @Component({
   selector: 'app-login',
@@ -47,24 +48,41 @@ export class LoginComponent implements OnInit {
     }
 
     this.loginService.login(this.loginForm.value.user, this.loginForm.value.passw)
-      .subscribe( (resp: LoginInterface) => {
-        this.loginInterface = resp;
-        const modulo: ModuloInterface = {};
-        modulo.idAplicativo = 1;
-        modulo.idModulo = 5;
-        modulo.modulo = 'Perfil';
-        modulo.ruta = '/home';
+      .toPromise()
+      .then((resp: LoginInterface) => {
 
-        this.loginService.moduloActual = modulo;
+        this.loginInterface = resp;
+
         if (this.loginInterface.objResultadoSP.result === 1) {
           this.loginService.setUserLoggedIn(this.loginInterface);
-          this.router.navigate(['/home']);
+
+          // revisamos el estatus del usuario
+          switch (resp.objUsuario.idEstatusUsuario) {
+            case 1: // Usuario Activo
+
+              const modulo: ModuloInterface = {
+                idModulo: 5,
+                modulo: 'Perfil',
+                ruta: '/home'
+              };
+
+              this.loginService.setModuloActual(modulo);
+              this.router.navigate([modulo.ruta]);
+              break;
+            case 4: // Cambio contraseña
+              this.router.navigate(['/home/cambio-passw']);
+              break;
+            default:
+              this.alertService.error('Acceso denegado.');
+              break;
+          }
+
         } else {
           this.alertService.error(this.loginInterface.objResultadoSP.friendlyMessage, this.options);
           console.log(this.loginInterface.objResultadoSP.errorMessage);
         }
-
-    } );
+      })
+      .catch( error => { throw error; });
   }
 
 }

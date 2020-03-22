@@ -28,7 +28,7 @@ export class SidebarComponent implements OnInit {
 
   cargarMenus() {
     this.infoLogin = this.loginService.getUserLoggedIn();
-    this.modulo = this.loginService.moduloActual;
+    this.modulo = this.loginService.getModuloActual();
 
     if (!this.modulo) {
       return;

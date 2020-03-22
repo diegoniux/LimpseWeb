@@ -3,14 +3,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { LoginInterface } from '../interfaces/login.interface';
 import { Md5 } from 'ts-md5/dist/md5';
 import { ModuloInterface } from '../interfaces/modulo.interface';
+import { ReportesRoutingModule } from '../modules/reportes/reportes-routing.module';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
-
-  public moduloActual: ModuloInterface;
 
   constructor(private http: HttpClient) {
 
@@ -39,11 +38,23 @@ export class LoginService {
     return this.http.get('https://localhost:44337/api/Login/Opciones/' + IdMenu + '/' + IdPerfil);
   }
 
-  setUserLoggedIn(login: LoginInterface) {
+  public setUserLoggedIn(login: LoginInterface) {
     localStorage.setItem('sessionUser', JSON.stringify(login));
   }
 
-  getUserLoggedIn() {
+  public setModuloActual(modulo: ModuloInterface) {
+    localStorage.setItem('moduloActual', JSON.stringify(modulo));
+  }
+
+  public getModuloActual() {
+    let modulo: ModuloInterface;
+    if (localStorage.getItem('moduloActual') !== '') {
+      modulo = JSON.parse(localStorage.getItem('moduloActual'));
+    }
+    return modulo;
+  }
+
+  public getUserLoggedIn() {
     let loginInterface: LoginInterface;
     if (localStorage.getItem('sessionUser') !== '') {
       loginInterface = JSON.parse(localStorage.getItem('sessionUser'));
@@ -51,7 +62,8 @@ export class LoginService {
     return loginInterface;
   }
 
-  setUserLoggedOn() {
+  public setUserLoggedOn() {
     localStorage.setItem('isUserLoggedIn', null);
+    localStorage.setItem('moduloActual', null);
   }
 }

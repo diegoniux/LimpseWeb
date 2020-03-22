@@ -27,7 +27,7 @@ export class AdmorServiciosComponent implements OnInit, AfterViewInit {
     keepAfterRouteChange: false
   };
 
-  public tiposServicio: TipoServicioInterface[];
+  tiposServicio: TipoServicioInterface[];
   servicioForm: FormGroup;
   servicioActual: ServicioInterface;
   submitted = false;
@@ -71,10 +71,14 @@ export class AdmorServiciosComponent implements OnInit, AfterViewInit {
         .catch(error => { throw error; });
       },
       insert: function(values) {
+        console.log(values);
         return that.servicioService.registrarServicio(values)
         .toPromise()
         .then((data: any) => {
-          console.log(data);
+          if (data.result === 0) {
+            console.log(data.errorMessage);
+            throw(data.friendlyMessage);
+          }
         })
         .catch( error => { throw error; });
       },
@@ -93,6 +97,10 @@ export class AdmorServiciosComponent implements OnInit, AfterViewInit {
         return that.servicioService.actualizarServicio(key, servicioActualizar)
         .toPromise()
         .then((data: any) => {
+          if (data.result === 0) {
+            console.log(data.errorMessage);
+            throw(data.friendlyMessage);
+          }
         })
         .catch( error => { throw error; });
       },
@@ -100,6 +108,10 @@ export class AdmorServiciosComponent implements OnInit, AfterViewInit {
         return that.servicioService.eliminarServicio(key)
         .toPromise()
         .then((data: any) => {
+          if (data.result === 0) {
+            console.log(data.errorMessage);
+            throw(data.friendlyMessage);
+          }
         })
         .catch( error => { throw error; });
       },

@@ -1,1 +1,76 @@
-<p>insumos works!</p>
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Catálogo de Materiales</h6>
+    </div>
+    <div class="card-body">
+        <!-- <div class="text-left">
+            <button class="btn btn-primary btn-sm" (click)="agregarServicio();">Agregar Servicio</button>
+        </div>
+        <br> -->
+        <dx-data-grid #targetGridMateriales
+            [dataSource]="materialesDataSource"
+            [showBorders]="true"
+            [columnAutoWidth]="true"
+            keyExpr="idMaterial"
+            [rowAlternationEnabled]="true"
+            [showRowLines]="true"
+            [hoverStateEnabled]="true">
+            <dxo-paging [pageSize]="10"></dxo-paging>
+            <dxo-pager 
+                [showPageSizeSelector]="true"
+                [allowedPageSizes]="[5, 10, 20]"
+                [showInfo]="true">
+            </dxo-pager>
+
+            <dxo-load-panel [enabled]="true"></dxo-load-panel>
+            <dxo-filter-row [visible]="true"></dxo-filter-row>
+            <dxo-header-filter [visible]="true"></dxo-header-filter>
+            <dxo-export 
+                [enabled]="true"
+                [printingEnabled]="true">
+            </dxo-export>
+
+            <dxo-editing 
+                mode="popup"
+                [allowAdding]="true"
+                [allowUpdating]="true"
+                [allowDeleting]="true"
+                [useIcons]="true">
+                <dxo-popup
+                    title="Información"
+                    [showTitle]="true">
+                </dxo-popup>
+            <dxo-form>
+                <dxi-item itemType="group" [colSpan]="2">
+                    <dxi-item dataField="idMaterial" [editorOptions]="{ disabled: true }" ></dxi-item>
+                    <dxi-item dataField="idTipoMaterial">
+                        <dxi-validation-rule type="required" message="Seleccione un tipo de insumo"></dxi-validation-rule>
+                    </dxi-item>
+                    <dxi-item dataField="material">
+                        <dxi-validation-rule type="required" message="Campo requerido"></dxi-validation-rule>
+                    </dxi-item>
+                    <dxi-item dataField="activo" [editorOptions]="{ disabled: true, value: true }"></dxi-item>
+                </dxi-item>
+            </dxo-form>
+            </dxo-editing>
+
+            <dxi-column dataField="idMaterial" dataType="number" [visible]="false" caption="No"></dxi-column>
+            <dxi-column dataField="material" dataType="string" caption="Material"></dxi-column>
+            <dxi-column 
+                dataField="idTipoMaterial" 
+                dataType="string" 
+                caption="Tipo Material">
+                <dxo-lookup
+                    [dataSource]="tiposMaterial"
+                    displayExpr="tipoMaterial"
+                    valueExpr="idTipoMaterial">
+                </dxo-lookup>
+            </dxi-column>
+            <dxi-column dataField="activo" [visible]="false" caption="Activo"></dxi-column>
+
+        </dx-data-grid>
+    </div>
+</div>
+
+

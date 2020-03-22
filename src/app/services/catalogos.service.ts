@@ -17,5 +17,13 @@ export class CatalogosService {
     return this.http.get('https://localhost:44337/api/Catalogos/TiposServicio');
   }
 
+  public gettiposMateriales() {
+    return this.http.get('https://localhost:44337/api/Catalogos/TiposMaterial');
+  }
+
+  public getEstatusUsuario() {
+    return this.http.get('https://localhost:44337/api/Catalogos/EstatusUsuario');
+  }
+
 
 }

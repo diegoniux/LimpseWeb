@@ -11,7 +11,7 @@ export class UsuarioService {
   constructor(private http: HttpClient) { }
 
   public crearUsuario(usuario: UsuarioInterface) {
-    return this.http.put('https://localhost:44337/api/Usuarios', JSON.stringify(usuario),
+    return this.http.post('https://localhost:44337/api/Usuarios', JSON.stringify(usuario),
     {
       headers: {'Content-Type': 'application/json; charset=utf-8'}
     });
@@ -19,6 +19,14 @@ export class UsuarioService {
 
   public actualizarPerfil(usuario: UsuarioInterface) {
     return this.http.put('https://localhost:44337/api/Usuarios/' + usuario.idUsuario,
+    JSON.stringify(usuario),
+    {
+      headers: {'Content-Type': 'application/json; charset=utf-8'}
+    });
+  }
+
+  public actualizarUsuario(idUsuario: number, usuario: UsuarioInterface) {
+    return this.http.put('https://localhost:44337/api/Usuarios/' + idUsuario,
     JSON.stringify(usuario),
     {
       headers: {'Content-Type': 'application/json; charset=utf-8'}
@@ -49,6 +57,26 @@ export class UsuarioService {
 
   public getUsuario(IdUsiario) {
     return this.http.get('https://localhost:44337/api/Usuarios/' + IdUsiario);
+  }
+
+  public eliminarUsuario(IdServicio: number) {
+    return this.http.delete('https://localhost:44337/api/Usuarios/' + IdServicio);
+  }
+
+  public bloquearUsuario(idUsuario: number) {
+    return this.http.put('https://localhost:44337/BloquearUsuario/',
+    idUsuario,
+    {
+      headers: {'Content-Type': 'application/json; charset=utf-8'}
+    });
+  }
+
+  public desbloquearUsuario(idUsuario: number) {
+    return this.http.put('https://localhost:44337/DesbloquearUsuario/',
+    idUsuario,
+    {
+      headers: {'Content-Type': 'application/json; charset=utf-8'}
+    });
   }
 
 }
