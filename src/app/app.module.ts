@@ -39,6 +39,7 @@ import { CatalogosComponent } from './pages/catalogos/catalogos.component';
 import { SeguridadComponent } from './pages/seguridad/seguridad.component';
 import { AdmorServiciosComponent } from './pages/admor-servicios/admor-servicios.component';
 import { AdmorClientesComponent } from './pages/admor-clientes/admor-clientes.component';
+import { AdmorTecnicosComponent } from './pages/admor-tecnicos/admor-tecnicos.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { AdmorClientesComponent } from './pages/admor-clientes/admor-clientes.co
     CatalogosComponent,
     SeguridadComponent,
     AdmorServiciosComponent,
-    AdmorClientesComponent
+    AdmorClientesComponent,
+    AdmorTecnicosComponent
   ],
   imports: [
     BrowserModule,

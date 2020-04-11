@@ -17,7 +17,6 @@ import { AlertService } from '../../shared/_alert/alert.service';
 export class UsuariosComponent implements OnInit {
   @ViewChild('targetGridUsuarios', { static: false }) dataGrid: DxDataGridComponent;
   usuariosDataSource: CustomStore;
-  usuarios: ArrayStore;
 
   perfiles: PerfilInterface[];
   estatusUsuarios: EstatusUsuarioInterface[];
