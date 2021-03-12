@@ -5,9 +5,9 @@
     <ul class="navbar-nav ml-auto">
         
         <li *ngFor="let item of modulos" class="nav-item">
-            <i class="nav-link text-gray-700" (click)="goModulo(item);" role="button">
-                {{ item.modulo }}
-            </i>
+           <button class="btn nav-link text-gray-700" (click)="goModulo(item);">
+               {{ item.modulo }}
+            </button>
         </li>
 
         <div class="topbar-divider d-none d-sm-block"></div>
@@ -23,12 +23,12 @@
             </a>
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" (click)="goModuloPerfil();" role="button">
+                <a class="dropdown-item" (click)="goModuloPerfil();" role="button" style="cursor: pointer;">
                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                     Perfil
                 </a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" (click)="openModal('confirmationModal')" role="button">
+                <a class="dropdown-item" (click)="openModal('confirmationModal')" role="button" style="cursor: pointer;">
                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                     Cerrar sesión
                 </a>

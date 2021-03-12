@@ -1,3 +1,5 @@
+import { EstadoInterface } from './estado.interface';
+
 export interface InfoApp {
   titulo?: string;
   email?: string;
@@ -5,4 +7,5 @@ export interface InfoApp {
   nombre_largo?: string;
   Linkedin?: string;
   IdAplicativo?: number;
+  Estados?: EstadoInterface[];
 }

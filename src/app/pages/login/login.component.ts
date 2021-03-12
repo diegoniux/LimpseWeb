@@ -5,7 +5,6 @@ import { LoginInterface } from '../../interfaces/login.interface';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertService } from '../../shared/_alert/alert.service';
 import { ModuloInterface } from '../../interfaces/modulo.interface';
-import { UsuarioInterface } from '../../interfaces/usuario.interface';
 
 @Component({
   selector: 'app-login',

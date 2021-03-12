@@ -14,6 +14,7 @@ import { InfoApp } from '../../interfaces/infoPagina.interface';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
+  isNavbarCollapsed: boolean;
 
   modulos: ModuloInterface[];
   options = {
@@ -27,7 +28,11 @@ export class NavbarComponent implements OnInit {
               public router: Router,
               public infoAppService: InfoAppService,
               private modalService: ModalService,
-              private alertService: AlertService) { }
+              private alertService: AlertService) {
+
+    this.isNavbarCollapsed = true;
+
+  }
 
   ngOnInit(): void {
     this.infoApp = this.loginService.getInfoApp();

@@ -1,0 +1,251 @@
+<div class="card" *ngIf="cliente">
+    <div class="card-header">
+        {{ pageTitle }}
+    </div>
+
+    <div class="card-body">
+        <form [formGroup]="clienteForm" (ngSubmit)="submitForm()">
+            <div class="row">
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <label for="idCliente" class="col-form-label">No.</label>
+                        <input type="text" class="form-control" disabled  formControlName="idCliente">
+                    </div>
+                </div>
+            </div>
+            <div class="row">   
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label for="nombres" class="col-form-label">Nombres</label>
+                        <input type="text" class="form-control" formControlName="nombres"
+                            [ngClass]="{ 'is-invalid': submitted && f.nombres.errors }">
+                        
+                        <div *ngIf="submitted && f.nombres.errors" class="invalid-feedback">
+                            <div *ngIf="f.nombres.errors.required">Campo requerido</div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label for="apellidoPaterno" class="col-form-label">Ap. Paterno</label>
+                        <input type="text" class="form-control" formControlName="apellidoPaterno"
+                            [ngClass]="{ 'is-invalid': submitted && f.apellidoPaterno.errors}">
+                        <div *ngIf="submitted && f.apellidoPaterno.errors" class="invalid-feedback">
+                            <div *ngIf="f.apellidoPaterno.errors.required">Campo requerido</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label for="apellidoMaterno" class="col-form-label">Ap. Materno</label>
+                        <input type="text" class="form-control" formControlName="apellidoMaterno">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label for="razonSocial" class="col-form-label">Razón Social</label>
+                        <input type="text" class="form-control" formControlName="razonSocial"
+                            [ngClass]="{'is-invalid': submitted && f.razonSocial.errors}">
+                        <div *ngIf="submitted && f.razonSocial.errors" class="invalid-feedback">
+                            <div *ngIf="f.razonSocial.errors.required">Campo requerido</div>
+                        </div> 
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label for="rfc" class="col-form-label">RFC</label>
+                        <input type="text" class="form-control" formControlName="rfc"
+                            [ngClass]="{'is-invalid': submitted && f.rfc.errors}">
+                        <div *ngIf="submitted && f.rfc.errors" class="invalid-feedback">
+                            <div *ngIf="f.email.errors.required">Campo requerido</div>
+                        </div> 
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label for="email" class="col-form-label">Email</label>
+                        <input type="text" class="form-control" formControlName="email"
+                            [ngClass]="{'is-invalid': submitted && f.email.errors}">
+                        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                            <div *ngIf="f.email.errors.email">Email incorrecto</div>
+                        </div> 
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-right">
+                <button *ngIf="accion !== '3'" type="button" class="btn btn-primary mr-2" (click)="submitForm()" style="cursor: pointer;">
+                    Guardar
+                </button>
+                <button type="button" class="btn btn-secondary" [routerLink]="['/clientes/clientes']" style="cursor: pointer;">
+                    Regresar
+                </button>
+            </div>
+
+        </form>
+
+        <hr>
+
+        <!-- TELEFONOS -->
+        <div class="card-title" *ngIf="cliente.idCliente !== 0">
+            <div class="text">
+                <i class="fa fa-phone"></i> Telefonos
+                <button *ngIf="accion !== '3'" type="button" class="btn btn-success px-3" (click)="addTelefono()">
+                    <i class="fa fa-plus"></i>
+                </button>
+            </div>
+        </div>
+
+        <div *ngFor="let telefono of tf.controls; let i = index" class="list-group list-group-flush">
+            <form [formGroup]="telefono">
+                <div class="form-group row">
+                    <label for="idTipoTelefono" class="col-sm-1 col-form-label">Tipo</label>
+                    <div class="col-sm-3">
+                        <select formControlName="idTipoTelefono" class="form-control"
+                            [ngClass]="{'is-invalid': submittedPhone && tfi(i).controls.idTipoTelefono.errors}">
+                            <option *ngFor="let item of tiposTelefono" [ngValue]="item.idTipoTelefono">{{ item.tipoTelefono }}</option>
+                        </select>
+                        <div *ngIf="submittedPhone && tfi(i).controls.idTipoTelefono.errors" class="invalid-feedback">
+                            <div *ngIf="tfi(i).controls.idTipoTelefono.errors.required">Campo requerido</div>
+                        </div> 
+                    </div>
+                    <label for="telefono" class="col-sm-2 col-form-label">Teléfono</label>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" formControlName="telefono"
+                            [ngClass]="{'is-invalid': submittedPhone && tfi(i).controls.telefono.errors}">
+                        <div *ngIf="submittedPhone && tfi(i).controls.telefono.errors" class="invalid-feedback">
+                            <div *ngIf="tfi(i).controls.telefono.errors.required">Campo requerido</div>
+                        </div>   
+                    </div>
+                    <div class="col-sm-1">
+                        <button type="button" class="btn btn-circle btn-primary" (click)="guardarTelefono(i)">
+                            <i class="fa fa-save"></i>
+                        </button>
+                    </div>
+                    <div class="col-sm-1">
+                        <button type="button" class="btn btn-circle btn-secondary" (click)="eliminarTelefono(i)" style="cursor: pointer;">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    
+        <hr>
+
+        <!-- DIRECIONES -->
+        <div class="card-title" *ngIf="cliente.idCliente !== 0">
+            
+            <div class="text-left">
+                <i class="fa fa-address-card"></i> DIRECICONES
+                <button *ngIf="accion !== '3'" type="button" class="btn btn-success px-3" (click)="addDireccion()">
+                    <i class="fa fa-plus"></i>
+                </button>
+            </div>
+        </div>
+        <div *ngFor="let direccion of df.controls; let i = index" class="list-group list-group-flush">
+            <hr>
+            <form [formGroup]="direccion">
+                <div class="row">
+                    
+                    <div class="col-lg-8">
+                        <div class="form-group">
+                            <label for="calle" class="col-form-label">Calle</label>
+                            <input type="text" class="form-control" formControlName="calle"
+                                [ngClass]="{'is-invalid': submittedAddress && dfi(i).controls.calle.errors}">
+                            <div *ngIf="submittedAddress && dfi(i).controls.calle.errors" class="invalid-feedback">
+                                <div *ngIf="dfi(i).controls.calle.errors.required">Campo requerido</div>
+                            </div> 
+                        </div>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <div class="form-group">
+                            <label for="noExt" class="col-form-label">No.Ext</label>
+                            <input type="text" class="form-control" formControlName="noExt"
+                                [ngClass]="{'is-invalid': submittedAddress && dfi(i).controls.noExt.errors}">
+                            <div *ngIf="submittedAddress && dfi(i).controls.noExt.errors" class="invalid-feedback">
+                                <div *ngIf="dfi(i).controls.noExt.errors.required">Campo requerido</div>
+                            </div>   
+                        </div>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <div class="form-group">
+                            <label for="noInt" class="col-form-label">No.Int</label>
+                            <input type="text" class="form-control" formControlName="noInt">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="form-group">
+                            <label for="colonia" class="col-form-label">Colonia</label>
+                            <input type="text" class="form-control" formControlName="colonia"
+                                [ngClass]="{'is-invalid': submittedAddress && dfi(i).controls.colonia.errors}">
+                            <div *ngIf="submittedAddress && dfi(i).controls.colonia.errors" class="invalid-feedback">
+                                <div *ngIf="dfi(i).controls.colonia.errors.required">Campo requerido</div>
+                            </div>  
+                        </div>
+                    </div>  
+
+
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label for="cp" class="col-form-label">Código postal</label>
+                            <input type="text" class="form-control" formControlName="cp"
+                                [ngClass]="{'is-invalid': submittedAddress && dfi(i).controls.cp.errors}">
+                            <div *ngIf="submittedAddress && dfi(i).controls.cp.errors" class="invalid-feedback">
+                                <div *ngIf="dfi(i).controls.cp.errors.required">Campo requerido</div>
+                            </div>  
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-5">
+                        <div class="form-group">
+                            <label for="ciudad" class="col-form-label">Ciudad</label>
+                            <input type="text" class="form-control" formControlName="ciudad"
+                                [ngClass]="{'is-invalid': submittedAddress && dfi(i).controls.ciudad.errors}">
+                            <div *ngIf="submittedAddress && dfi(i).controls.ciudad.errors" class="invalid-feedback">
+                                <div *ngIf="dfi(i).controls.ciudad.errors.required">Campo requerido</div>
+                            </div>  
+                        </div>
+                    </div>
+
+                    <div class="col-lg-5">
+                        <div class="form-group">
+                            <label>Estado</label>
+                            <select formControlName="estado" 
+                                    [ngClass]="{ 'is-invalid': submittedAddress && dfi(i).controls.errors }"
+                                class="form-control">
+                                <option *ngFor="let item of estados" [ngValue]="item.name">{{ item.name }}</option>
+                            </select>
+                            <div *ngIf="submittedAddress && dfi(i).controls.estado.errors" class="invalid-feedback">
+                                <div *ngIf="dfi(i).controls.estado.errors.required">Selecciona un estado</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-1">
+                        <button type="button" class="btn btn-circle btn-primary" (click)="guardarDireccion(i)">
+                            <i class="fa fa-save"></i>
+                        </button>
+                    </div>
+                    <div class="col-lg-1">
+                        <button type="button" class="btn btn-circle btn-secondary" (click)="eliminarDireccion(i)" style="cursor: pointer;">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

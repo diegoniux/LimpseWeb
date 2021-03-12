@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { InfoApp } from '../interfaces/infoPagina.interface';
-import { AlertService } from '../shared/_alert/alert.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +10,7 @@ options = {
   keepAfterRouteChange: false
 };
 
-  constructor( private http: HttpClient,
-               private alertService: AlertService ) {
+  constructor( private http: HttpClient) {
   }
 
   getInfoApp() {
